@@ -1,0 +1,19 @@
+Revision history for Perl extension Image::Magick::Chart.
+
+1.02  Sun Jul 17 17:52:00 2005
+	- Add an option, y_axis_labels_x, which allows the user to specify the x-axis value
+		(abscissa) at which to start writing y-axis labels. From the POD:
+		The value, if not undef, determines the x-axis value (abscissa) at which y-axis labels are written.
+		The special value undef means this module calculates an abscissa at which to start writing
+		y-axis labels. The default behaviour is identical to the previous version 1.01.
+		This calculation will only produce a pretty-looking column of y-axis labels when all labels are
+		the same width in pixels. See C<sub draw_y_axis_labels()> for the calculation.
+		The default value is undef.
+		This parameter is optional.
+
+1.01  Mon Jun 13 12:19:00 2005
+	- No code changes
+	- Various documentation fixes and clarifications
+
+1.00  Thu May 27 11:25:29 2005
+	- original version
