@@ -1,5 +1,13 @@
 Revision history for Perl extension Image::Magick::Chart.
 
+1.03  Fri Dec 12 18:15:00 2008
+	  - Image::Magick's Draw() method has an option, 'fill'. When I first wrote this module,
+	  	fill's value defaulted to 'none', and now it defaults to something else. The effect is
+		that when drawing a frame, the whole image is now filled in with black. Hence the patch
+		to Image::Magick::Chart's draw_frame() method.
+		I am tempted to rant and rave about the endless butchering of Image::Magick by its author,
+		but that would not achieve anything... And anyway, it's an extremely useful module
+
 1.02  Sun Jul 17 17:52:00 2005
 	- Add an option, y_axis_labels_x, which allows the user to specify the x-axis value
 		(abscissa) at which to start writing y-axis labels. From the POD:
