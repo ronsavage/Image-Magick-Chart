@@ -1,5 +1,9 @@
 Revision history for Perl extension Image::Magick::Chart.
 
+1.04  Fri Nov 13 13:20:00 2009
+	- Run dos2unix
+	- Rename Changes.txt to CHANGES
+
 1.03  Fri Dec 12 18:15:00 2008
 	  - Image::Magick's Draw() method has an option, 'fill'. When I first wrote this module,
 	  	fill's value defaulted to 'none', and now it defaults to something else. The effect is
