@@ -952,16 +952,6 @@ Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Required Modules
-
-=over 4
-
-=item Carp
-
-=item Image::Magick.
-
-=back
-
 =head1 Author
 
 C<Image::Magick::Chart> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2005.
@@ -970,8 +960,7 @@ Home page: http://savage.net.au/index.html
 
 =head1 Copyright
 
-Australian copyright (c) 2005, Ron Savage. All rights reserved.
-
+Australian copyright (c) 2005, Ron Savage.
 	All Programs of mine are 'OSI Certified Open Source Software';
 	you can redistribute them and/or modify them under the terms of
 	The Artistic License, a copy of which is available at:
