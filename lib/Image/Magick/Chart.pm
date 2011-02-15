@@ -56,7 +56,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 
 );
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 
 # -----------------------------------------------
 
@@ -397,7 +397,7 @@ C<Image::Magick::Chart> - Use Image::Magick to create charts.
 
 =head1 Synopsis
 
-	#!/usr/bin/perl
+	#!/usr/bin/env perl
 
 	use Image::Magick::Chart::HorizontalBars;
 
