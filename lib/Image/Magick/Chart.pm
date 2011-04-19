@@ -393,7 +393,7 @@ __END__
 
 =head1 NAME
 
-C<Image::Magick::Chart> - Use Image::Magick to create charts.
+C<Image::Magick::Chart> - Use Image::Magick to create charts
 
 =head1 Synopsis
 
