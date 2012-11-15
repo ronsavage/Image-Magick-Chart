@@ -1,5 +1,5 @@
 {
-   "abstract" : "Use Image::Magick to create charts.",
+   "abstract" : "Use Image::Magick to create charts",
    "author" : [
       "Ron Savage <ron@savage.net.au>"
    ],
@@ -22,7 +22,7 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.36"
+            "Module::Build" : "0.38"
          }
       },
       "runtime" : {
@@ -45,7 +45,7 @@
    "release_status" : "stable",
    "resources" : {
       "license" : [
-         "http://opensource.org/licenses/artistic-license.php"
+         "http://www.perlfoundation.org/artistic_license_1_0"
       ]
    },
    "version" : "1.06"
