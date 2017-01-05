@@ -1,62 +1,15 @@
 package Image::Magick::Chart::HorizontalBars;
 
-# Name:
-#	Image::Magick::Slice.
-#
-# Documentation:
-#	POD-style documentation is at the end. Extract it with pod2html.*.
-#
-# Reference:
-#	Object Oriented Perl
-#	Damian Conway
-#	Manning
-#	1-884777-79-1
-#	P 114
-#
-# Note:
-#	o Tab = 4 spaces || die.
-#
-# Author:
-#	Ron Savage <ron@savage.net.au>
-#	Home page: http://savage.net.au/index.html
-#
-# Licence:
-#	Australian copyright (c) 2005 Ron Savage.
-#
-#	All Programs of mine are 'OSI Certified Open Source Software';
-#	you can redistribute them and/or modify them under the terms of
-#	The Artistic License, a copy of which is available at:
-#	http://www.opensource.org/licenses/index.html
-
 use strict;
 use warnings;
 
 use Carp;
+
 use Image::Magick::Chart;
 
 require 5.005_62;
 
-require Exporter;
-
-our @ISA = qw(Image::Magick::Chart);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Image::Magick::Chart::HorizontalBars ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-
-);
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 
 # -----------------------------------------------
 
@@ -166,7 +119,7 @@ C<Image::Magick::Chart::HorizontalBars> - Use Image::Magick to create charts.
 This code is part of examples/test-chart.pl.
 
 Note: You do not need to specify all the options above, of course, but only those you
-wish to differ from the defaults. I've included all options in examples/test-chart.pl
+wish to differ from the defaults. I have included all options in examples/test-chart.pl
 just to save you the effort of having to type them in.
 
 =head1 Description
@@ -195,7 +148,7 @@ help on unpacking and installing each type of distro.
 
 new(...) returns a C<Image::Magick::Chart::HorizontalBars> object.
 
-This is the class's contructor.
+This is the class contructor.
 
 Usage: Image::Magick::Chart::HorizontalBars -> new().
 
@@ -206,28 +159,48 @@ For each parameter you wish to use, call new as new(param_1 => value_1, ...).
 Any parameter which is supported by the parent class, Image::Magick::Chart, can be used
 in the call the C<new()> in this class. So, see the docs for Image::Magick::Chart.
 
-=head1 Method: draw()
+=head1 Methods
+
+=head2 draw()
 
 Output the chart.
 
-=head1 Method: new(...)
+=head2 new(...)
 
 Returns a object of type C<Image::Magick::Chart::HorizontalBars>.
 
 See above, in the section called 'Constructor and initialization' for details.
 
+=head1 Machine-Readable Change Log
+
+The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
+
+=head1 Version Numbers
+
+Version numbers < 1.00 represent development versions. From 1.00 up, they are production versions.
+
+=head1 Repository
+
+L<https://github.com/ronsavage/Image-Magick-Chart>
+
+=head1 Support
+
+Email the author, or log a bug on RT:
+
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=Image-Magick-Chart>.
+
 =head1 Author
 
 C<Image::Magick::Chart::HorizontalBars> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2005.
 
-Home page: http://savage.net.au/index.html
+L<Homepage|http://savage.net.au/>
 
 =head1 Copyright
 
 Australian copyright (c) 2005, Ron Savage.
 	All Programs of mine are 'OSI Certified Open Source Software';
 	you can redistribute them and/or modify them under the terms of
-	The Artistic License, a copy of which is available at:
-	http://www.opensource.org/licenses/index.html
+	The Perl License, a copy of which is available at:
+	http://dev.perl.org/licenses/
 
 =cut

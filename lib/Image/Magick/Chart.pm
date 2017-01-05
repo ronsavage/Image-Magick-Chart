@@ -1,62 +1,15 @@
 package Image::Magick::Chart;
 
-# Name:
-#	Image::Magick::Slice.
-#
-# Documentation:
-#	POD-style documentation is at the end. Extract it with pod2html.*.
-#
-# Reference:
-#	Object Oriented Perl
-#	Damian Conway
-#	Manning
-#	1-884777-79-1
-#	P 114
-#
-# Note:
-#	o Tab = 4 spaces || die.
-#
-# Author:
-#	Ron Savage <ron@savage.net.au>
-#	Home page: http://savage.net.au/index.html
-#
-# Licence:
-#	Australian copyright (c) 2005 Ron Savage.
-#
-#	All Programs of mine are 'OSI Certified Open Source Software';
-#	you can redistribute them and/or modify them under the terms of
-#	The Artistic License, a copy of which is available at:
-#	http://www.opensource.org/licenses/index.html
-
 use strict;
 use warnings;
 
 use Carp;
+
 use Image::Magick;
 
 require 5.005_62;
 
-require Exporter;
-
-our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Image::Magick::Chart ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-
-);
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 
 # -----------------------------------------------
 
@@ -476,11 +429,11 @@ help on unpacking and installing each type of distro.
 
 new(...) returns an C<Image::Magick::Chart> object.
 
-This is the class's contructor.
+This is the class contructor.
 
 Usage: Image::Magick::Chart -> new().
 
-Note: Actually, you don't normally do this.
+Note: Actually, you do not normally do this.
 
 Instead, you call: Image::Magick::Chart::HorizontalBars -> new(...) -> draw().
 
@@ -492,7 +445,7 @@ Parameters:
 
 =over 4
 
-=item antialias
+=item o antialias
 
 The value, 0 or 1, is passed to Image::Magick, if this module creates the image.
 
@@ -504,7 +457,7 @@ The default value is 0.
 
 This parameter is optional.
 
-=item bar_width
+=item o bar_width
 
 This is the thickness of the bars, in pixels.
 
@@ -512,7 +465,7 @@ The default value is 8 pixels.
 
 This parameter is optional.
 
-=item bg_color
+=item o bg_color
 
 This is the background color of the image, if this module creates the image.
 
@@ -522,7 +475,7 @@ The default value is 'white'.
 
 This parameter is optional.
 
-=item colorspace
+=item o colorspace
 
 The value, 'RGB' etc, is passed to Image::Magick, if this module creates the image.
 
@@ -530,7 +483,7 @@ See the 'image' option if you wish to use a pre-existing object of type Image::M
 
 This parameter is optional.
 
-=item depth
+=item o depth
 
 This is the number of bits per color channel.
 
@@ -538,7 +491,7 @@ The default value is 8.
 
 This parameter is optional.
 
-=item fg_color
+=item o fg_color
 
 This is the color of the horizontal bars, when using C<Image::Magick::Chart::HorizontalBars>.
 
@@ -546,19 +499,19 @@ The default value is 'black'.
 
 This parameter is optional.
 
-=item font
+=item o font
 
 This is the font used for:
 
 =over 4
 
-=item The x-axis labels
+=item o The x-axis labels
 
-=item The y-axis labels
+=item o The y-axis labels
 
-=item The title on top of the image
+=item o The title on top of the image
 
-=item The labels (values) on top of (to the right of) the horizontal bars
+=item o The labels (values) on top of (to the right of) the horizontal bars
 
 =back
 
@@ -566,7 +519,7 @@ The default value is 'Courier'.
 
 This parameter is optional.
 
-=item frame_color
+=item o frame_color
 
 This is the color used to draw a frame around the area of the image which is
 actually occupied by the data.
@@ -575,7 +528,7 @@ The default color is 'black'.
 
 This parameter is optional.
 
-=item frame_option
+=item o frame_option
 
 The value, 0 or 1, determines whether (1) or not (0) the frame will be drawn.
 
@@ -583,7 +536,7 @@ The default value is 1.
 
 This parameter is optional.
 
-=item height
+=item o height
 
 This is the calculated height of the image, taking into account the area occupied by
 the data (the framed area), and the padding on the 4 sides of the frame.
@@ -593,7 +546,7 @@ values for width and height from that image.
 
 This parameter is optional.
 
-=item image
+=item o image
 
 This is the object of type Image::Magick used to manage the image.
 
@@ -604,13 +557,13 @@ If you use you own object, I assume you have set these parameters for your image
 
 =over 4
 
-=item antialias
+=item o antialias
 
-=item bg_color
+=item o bg_color
 
-=item colorspace
+=item o colorspace
 
-=item depth
+=item o depth
 
 =back
 
@@ -619,7 +572,7 @@ in a pre-existing object.
 
 This parameter is optional.
 
-=item output_file_name
+=item o output_file_name
 
 This is the path, filename and extension to the file where the image will be written.
 
@@ -627,7 +580,7 @@ There is no default.
 
 This parameter is mandatory.
 
-=item padding
+=item o padding
 
 This is a array ref of values, in pixels, to leave on all 4 sides of the image, between
 the edge of the image and the part occupied by data (the framed part).
@@ -638,22 +591,22 @@ A clockface is used to define the meanings of the 4 values, thus:
 
 =over 4
 
-=item $$padding[0], the first value, is at the top of the frame
+=item o $$padding[0], the first value, is at the top of the frame
 
 Top corresponds to 12 noon.
 
-=item $$padding[1], the second value, is at the right of the frame
+=item o $$padding[1], the second value, is at the right of the frame
 
 Right corresponds to 3 pm.
 
-Or, if you prefer 3 am, and you think in Spanish, then it's the hour beloved by facists
+Or, if you prefer 3 am, and you think in Spanish, then it is the hour beloved by facists
 and other psychopaths: 'de la madrugada'.
 
-=item $$padding[2], the third value, is at the bottom of the frame
+=item o $$padding[2], the third value, is at the bottom of the frame
 
 Bottom corresponds to 6 pm.
 
-=item $$padding[3], the fourth value, is at the left of the frame
+=item o $$padding[3], the fourth value, is at the left of the frame
 
 Left corresponds to 9 pm.
 
@@ -663,7 +616,7 @@ The default value is [30, 30, 30, 30].
 
 This parameter is optional.
 
-=item pointsize
+=item o pointsize
 
 This is the size of the text used wherever the 'font' option is used.
 
@@ -671,7 +624,7 @@ The default value is 14.
 
 This parameter is optional.
 
-=item tick_length
+=item o tick_length
 
 This is the length, in pixels, of the tick marks on the x and y axes.
 
@@ -679,7 +632,7 @@ The default value is 4 pixels.
 
 This parameter is optional.
 
-=item title
+=item o title
 
 This is the text written at the top centre of the image.
 
@@ -687,7 +640,7 @@ The default value is '' (the empty string).
 
 This parameter is optional.
 
-=item width
+=item o width
 
 This is the calculated width of the image, taking into account the area occupied by
 the data (the framed area), and the padding on the 4 sides of the frame.
@@ -697,7 +650,7 @@ values for width and height from that image.
 
 This parameter is optional.
 
-=item x_axis_data
+=item o x_axis_data
 
 This is an array ref of X values (abscissas) where you want the x-axis labels and x-axis tick marks
 to be drawn.
@@ -712,7 +665,7 @@ This parameter is optional.
 
 Warning: Do not confuse this parameter with the x_data parameter.
 
-=item x_axis_labels
+=item o x_axis_labels
 
 This is an array ref of labels to draw below the x-axis. The X values - around which these
 labels are centered - are supplied by the value of the x_axis_data option.
@@ -724,7 +677,7 @@ The default value is [], meaning no labels are drawn below the x-axis.
 
 This parameter is optional.
 
-=item x_axis_labels_option
+=item o x_axis_labels_option
 
 The value, 0 or 1, determines whether (1) or not (0) the x-axis labels will be drawn.
 
@@ -732,23 +685,23 @@ The default value is 1.
 
 This parameter is optional.
 
-=item x_axis_ticks_option
+=item o x_axis_ticks_option
 
 Values:
 
 =over 4
 
-=item '0'
+=item o 0
 
 Do not draw x-axis tick marks.
 
 The quotes are just to stop the zero disappearing when POD is converted to HTML.
 
-=item 1
+=item o 1
 
 Draw x-axis tick marks below the x-axis.
 
-=item 2
+=item o 2
 
 Draw x-axis tick marks across the frame and below the x-axis.
 
@@ -761,7 +714,7 @@ The default value is 1.
 
 This parameter is optional.
 
-=item x_data
+=item o x_data
 
 This is the array ref of data to use to draw the horizontal bars.
 
@@ -770,7 +723,7 @@ be turned off with the x_data_option parameter.
 
 This parameter is optional.
 
-=item x_data_option
+=item o x_data_option
 
 The value, 0 or 1, determines whether (1) or not (0) the X values given by
 the x_data parameter will be drawn on top of (to the right of) the bars.
@@ -779,7 +732,7 @@ The default value is 1.
 
 This parameter is optional.
 
-=item x_pixels_per_unit
+=item o x_pixels_per_unit
 
 This is the scaling factor in the x-axis direction.
 
@@ -796,7 +749,7 @@ The 100 comes from max(last value in @$x_axis_data, last value in @$x_data).
 
 This parameter is optional.
 
-=item y_axis_data
+=item o y_axis_data
 
 This is an array ref of Y values (ordinates) where you want the y-axis labels and y-axis tick marks
 to be drawn.
@@ -816,7 +769,7 @@ y-axis.
 
 This parameter is optional.
 
-=item y_axis_labels
+=item o y_axis_labels
 
 This is an array ref of labels to draw left of the y-axis. The Y values where these labels
 are drawn is supplied by the value of the y_axis_data option.
@@ -825,7 +778,7 @@ The default value is [], meaning no labels are drawn left of the y-axis.
 
 This parameter is optional.
 
-=item y_axis_labels_option
+=item o y_axis_labels_option
 
 The value, 0 or 1, determines whether (1) or not (0) the y-axis labels will be drawn.
 
@@ -833,7 +786,7 @@ The default value is 1.
 
 This parameter is optional.
 
-=item y_axis_labels_x
+=item o y_axis_labels_x
 
 The value, if not undef, determines the x-axis value (abscissa) at which y-axis labels are written.
 
@@ -847,23 +800,23 @@ The default value is undef.
 
 This parameter is optional.
 
-=item y_axis_ticks_option
+=item o y_axis_ticks_option
 
 Values:
 
 =over 4
 
-=item '0'
+=item o 0
 
 Do not draw y-axis tick marks.
 
 The quotes are just to stop the zero disappearing when POD is converted to HTML.
 
-=item 1
+=item o 1
 
 Draw y-axis tick marks left the y-axis.
 
-=item 2
+=item o 2
 
 Draw y-axis tick marks across the frame and left of the y-axis.
 
@@ -876,7 +829,7 @@ The default value is 1.
 
 This parameter is optional.
 
-=item y_pixels_per_unit
+=item o y_pixels_per_unit
 
 This is the scaling factor in the y-axis direction.
 
@@ -898,72 +851,92 @@ This parameter is optional.
 
 =back
 
-=head1 Method: draw_frame()
+=head1 Methods
+
+=head2 draw_frame()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_horizontal_bars()
+=head2 draw_horizontal_bars()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_title()
+=head2 draw_title()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_x_axis_labels()
+=head2 draw_x_axis_labels()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_x_axis_ticks()
+=head2 draw_x_axis_ticks()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_y_axis_labels()
+=head2 draw_y_axis_labels()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: draw_y_axis_ticks()
+=head2 draw_y_axis_ticks()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
-=head1 Method: new(...)
+=head2 new(...)
 
 Returns a object of type C<Image::Magick::Chart>.
 
 See above, in the section called 'Constructor and initialization' for details.
 
-=head1 Method: write()
+=head2 write()
 
 Called by method C<draw()> in C<Image::Magick::Chart::HorizontalBars>.
 
 These is no need to call this method yourself.
 
+=head1 Machine-Readable Change Log
+
+The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
+
+=head1 Version Numbers
+
+Version numbers < 1.00 represent development versions. From 1.00 up, they are production versions.
+
+=head1 Repository
+
+L<https://github.com/ronsavage/Image-Magick-Chart>
+
+=head1 Support
+
+Email the author, or log a bug on RT:
+
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=Image-Magick-Chart>.
+
 =head1 Author
 
 C<Image::Magick::Chart> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2005.
 
-Home page: http://savage.net.au/index.html
+L<Homepage|http://savage.net.au/>
 
 =head1 Copyright
 
 Australian copyright (c) 2005, Ron Savage.
 	All Programs of mine are 'OSI Certified Open Source Software';
 	you can redistribute them and/or modify them under the terms of
-	The Artistic License, a copy of which is available at:
-	http://www.opensource.org/licenses/index.html
+	The Perl License, a copy of which is available at:
+	http://dev.perl.org/licenses/
 
 =cut

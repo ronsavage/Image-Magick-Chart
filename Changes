@@ -1,21 +1,23 @@
 Revision history for Perl extension Image::Magick::Chart.
 
-1.07  Unreleased
+1.07  2017-01-08T08:36:00
 	- Replace /usr/bin/perl with /usr/bin/env perl.
 	- Replace common::sense with use strict and use warnings, to get uninit var warnings.
+	- Adopt new repo structure. See
+		http://savage.net.au/Ron/html/My.Workflow.for.Building.Distros.html.
 
-1.06  Sun Feb 21 12:55:21 2010
+1.06  2010-02-21T12:55:21
 	- Remove text 'All rights reserved' (for Debian licensing).
 	- Remove POD heads 'Required Modules' and 'Changes'.
 
-1.05  Wed Feb 10 14:02:08 2010
+1.05  2010-02-10T14:02:08
 	- MANIFEST.SKIP updated to exclude MYMETA.yml. Add MYMETA.yml.
 
-1.04  Fri Nov 13 13:20:00 2009
+1.04  2009-11-13T13:20:00
 	- Run dos2unix
 	- Rename Changes.txt to CHANGES
 
-1.03  Fri Dec 12 18:15:00 2008
+1.03  2008-12-12T18:15:00
 	  - Image::Magick's Draw() method has an option, 'fill'. When I first wrote this module,
 	  	fill's value defaulted to 'none', and now it defaults to something else. The effect is
 		that when drawing a frame, the whole image is now filled in with black. Hence the patch
@@ -23,7 +25,7 @@ Revision history for Perl extension Image::Magick::Chart.
 		I am tempted to rant and rave about the endless butchering of Image::Magick by its author,
 		but that would not achieve anything... And anyway, it's an extremely useful module
 
-1.02  Sun Jul 17 17:52:00 2005
+1.02  2005-07-17T17:52:00
 	- Add an option, y_axis_labels_x, which allows the user to specify the x-axis value
 		(abscissa) at which to start writing y-axis labels. From the POD:
 		The value, if not undef, determines the x-axis value (abscissa) at which y-axis labels are written.
@@ -34,9 +36,9 @@ Revision history for Perl extension Image::Magick::Chart.
 		The default value is undef.
 		This parameter is optional.
 
-1.01  Mon Jun 13 12:19:00 2005
+1.01  2005-06-13T12:19:00
 	- No code changes
 	- Various documentation fixes and clarifications
 
-1.00  Thu May 27 11:25:29 2005
+1.00  2005-05-27T11:25:29
 	- original version
