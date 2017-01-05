@@ -29,6 +29,7 @@ my(%params) =
 	{
 		'Carp'			=> 0,
 		'Image::Magick'	=> 6.00,
+		'Moo'			=> 2.003000,
 		'perl'			=> 5.006002,
 		'strict'		=> 0,
 		'warnings'		=> 0,

@@ -1,5 +1,6 @@
 package Image::Magick::Chart::HorizontalBars;
 
+use parent Image::Magick::Chart;
 use strict;
 use warnings;
 
@@ -7,36 +8,7 @@ use Carp;
 
 use Image::Magick::Chart;
 
-require 5.006002;
-
 our $VERSION = '1.07';
-
-# -----------------------------------------------
-
-# Preloaded methods go here.
-
-# -----------------------------------------------
-
-# Encapsulated class data.
-
-{
-	my(%_attr_data) =
-	(
-	);
-
-	sub _default_for
-	{
-		my($self, $attr_name) = @_;
-
-		$_attr_data{$attr_name};
-	}
-
-	sub _standard_keys
-	{
-		keys %_attr_data;
-	}
-
-}	# End of encapsulated class data.
 
 # -----------------------------------------------
 
@@ -44,28 +16,16 @@ sub draw
 {
 	my($self) = @_;
 
-	$self -> draw_frame()			if ($$self{'_frame_option'});
-	$self -> draw_x_axis_ticks()	if ($$self{'_x_axis_ticks_option'});
-	$self -> draw_x_axis_labels()	if ($$self{'_x_axis_labels_option'});
-	$self -> draw_y_axis_ticks()	if ($$self{'_y_axis_ticks_option'});
-	$self -> draw_y_axis_labels()	if ($$self{'_y_axis_labels_option'});
+	$self -> draw_frame()			if ($self -> frame_option);
+	$self -> draw_x_axis_ticks()	if ($self -> x_axis_ticks_option);
+	$self -> draw_x_axis_labels()	if ($self -> x_axis_labels_option);
+	$self -> draw_y_axis_ticks()	if ($self -> y_axis_ticks_option);
+	$self -> draw_y_axis_labels()	if ($self -> y_axis_labels_option);
 	$self -> draw_horizontal_bars();
-	$self -> draw_title()			if ($$self{'_title'});
+	$self -> draw_title()			if ($self -> title);
 	$self -> write();
 
 }	# End of draw.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg)	= @_;
-	my($self)			= Image::Magick::Chart -> new(%arg);
-	$self				= bless($self, $class); # Reconsecrate.
-
-	return $self;
-
-}	# End of new.
 
 # -----------------------------------------------
 

@@ -7,88 +7,299 @@ use Carp;
 
 use Image::Magick;
 
+use Moo;
+
 require 5.006002;
 
 our $VERSION = '1.07';
 
+use Types::Standard qw/Any ArrayRef Bool Int Str/;
+
+has antialias =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Bool,
+	required => 0,
+);
+
+has bar_width =>
+(
+	default  => sub{return 8},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has bg_color =>
+(
+	default  => sub{return 'white'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has colorspace =>
+(
+	default  => sub{return 'RGB'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has depth =>
+(
+	default  => sub{return 8},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has fg_color =>
+(
+	default  => sub{return 'black'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has font =>
+(
+	default  => sub{return 'Courier'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has frame_color =>
+(
+	default  => sub{return 'black'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has frame_option =>
+(
+	default  => sub{return 1},
+	is       => 'rw',
+	isa      => Bool,
+	required => 0,
+);
+
+has height =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has image =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Any,
+	required => 0,
+);
+
+has output_file_name =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Str,
+	required => 1,
+);
+
+has padding =>
+(
+	default  => sub{return [30, 30, 30, 30]}, # [12 noon, 3, 6, 9].
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 0,
+);
+
+has pointsize =>
+(
+	default  => sub{return 14},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has tick_length =>
+(
+	default  => sub{return 4},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has title =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has width =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has x_axis_data =>
+(
+	default  => sub{return []},
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 1,
+);
+
+has x_axis_labels =>
+(
+	default  => sub{return []},
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 1,
+);
+
+has x_axis_labels_option =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Bool,
+	required => 0,
+);
+
+has x_axis_ticks_option =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Int, # Sic.
+	required => 0,
+);
+
+has x_data =>
+(
+	default  => sub{return []},
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 0,
+);
+
+has x_data_option =>
+(
+	default  => sub{return 1},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has x_pixels_per_unit =>
+(
+	default  => sub{return 3},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
+has y_axis_data =>
+(
+	default  => sub{return []},
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 1,
+);
+
+has y_axis_labels =>
+(
+	default  => sub{return []},
+	is       => 'rw',
+	isa      => ArrayRef,
+	required => 1,
+);
+
+has y_axis_labels_option =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Bool,
+	required => 0,
+);
+
+has y_axis_labels_x =>
+(
+	default  => sub{return undef},
+	is       => 'rw',
+	isa      => Any,
+	required => 0,
+);
+
+has y_axis_ticks_option =>
+(
+	default  => sub{return 1},
+	is       => 'rw',
+	isa      => Int, # Sic.
+	required => 0,
+);
+
+has y_pixels_per_unit =>
+(
+	default  => sub{return 20},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
 # -----------------------------------------------
 
-# Preloaded methods go here.
-
-# -----------------------------------------------
-
-# Encapsulated class data.
-
+sub BUILD
 {
-	my(%_attr_data) =
-	(
-	 _antialias            => 0, # 0 => No antialias; 1 => Antialias.
-	 _bar_width            => 8, # Pixels.
-	 _bg_color             => 'white',
-	 _colorspace           => 'RGB',
-	 _depth                => 8, # Bits per channel.
-	 _fg_color             => 'black',
-	 _font                 => 'Courier',
-	 _frame_color          => 'black',
-	 _frame_option         => 1, # 0 => None; 1 => Draw it.
-	 _height               => 0,
-	 _image                => '', # To specify the padding in pixels around the frame
-	 _output_file_name     => '', # I use CSS-style for the 4 sides of the image:
-	 _padding              => [30, 30, 30, 30], # [12 noon, 3, 6, 9].
-	 _pointsize            => 14, # Points.
-	 _tick_length          => 4,  # Pixels.
-	 _title                => '',
-	 _width                => 0,
-	 _x_axis_data          => [],
-	 _x_axis_labels        => [],
-	 _x_axis_labels_option => 1, # 0 => None; 1 => Draw them.
-	 _x_axis_ticks_option  => 2, # 0 => None; 1 => Below x-axis; 2 => Across frame.
-	 _x_data               => [],
-	 _x_data_option        => 1,
-	 _x_pixels_per_unit    => 3, # Horizontal width of each data unit.
-	 _y_axis_data          => [],
-	 _y_axis_labels        => [],
-	 _y_axis_labels_option => 1,     # 0 => None; 1 => Draw them.
-	 _y_axis_labels_x      => undef, # undef => Ignore; Other => Use.
-	 _y_axis_ticks_option  => 1,     # 0 => None; 1 => Left of y-axis; 2 => Across frame.
-	 _y_pixels_per_unit    => 20,
-	);
+	my($self) = @_;
 
-	sub _default_for
+	if ($self -> image)
 	{
-		my($self, $attr_name) = @_;
+		($self -> width, $self -> height) = $self -> image -> Get('width', 'height');
+	}
+	else
+	{
+		$self -> width(${$self -> padding}[3] + 1 + ($self -> x_pixels_per_unit * ${$self -> x_axis_data}[$#{$self -> x_axis_data}]) + ${$self -> padding}[1]);
+		$self -> height(${$self -> padding}[2] + 1 + ($self -> y_pixels_per_unit * ${$self -> y_axis_data}[$#{$self -> y_axis_data}]) + ${$self -> padding}[0]);
+		$self -> image(Image::Magick -> new(size => "$self -> width x $self -> height") );
 
-		$_attr_data{$attr_name};
+		$self -> image -> Set(antialias => $self -> antialias) && Carp::croak("Can't set antialias: $self -> antialias");
+		$self -> image -> Set(colorspace => $self -> colorspace) && Carp::croak("Can't set colorspace: $self -> colorspace");
+		$self -> image -> Set(depth => $self -> depth) && Carp::croak("Can't set depth: $self -> depth");
+		$self -> image -> Read('xc:' . $self -> bg_color) && Carp::croak("Can't set bg_color color: $self -> bg_color");
 	}
 
-	sub _standard_keys
-	{
-		keys %_attr_data;
-	}
-
-}	# End of encapsulated class data.
+}	# End of BUILD.
 
 # -----------------------------------------------
 
 sub draw_frame
 {
 	my($self)  = @_;
-	my($x_max) = $$self{'_x_pixels_per_unit'} * $$self{'_x_axis_data'}[$#{$$self{'_x_axis_data'} }];
+	my($x_max) = $self -> x_pixels_per_unit * ${$self -> x_axis_data}[$#{$self -> x_axis_data}];
 
-	$$self{'_image'} -> Draw
+	$self -> image -> Draw
 	(
-	 fill      => 'none',
-	 primitive => 'polyline',
-	 stroke    => $$self{'_frame_color'},
-	 points    => sprintf
-	 (
-	  "%i,%i %i,%i %i,%i %i,%i %i,%i",
-	  $$self{'_padding'}[3], $$self{'_padding'}[0],
-	  $$self{'_padding'}[3] + $x_max, $$self{'_padding'}[0],
-	  $$self{'_padding'}[3] + $x_max, ($$self{'_height'} - $$self{'_padding'}[2] - 1),
-	  $$self{'_padding'}[3], ($$self{'_height'} - $$self{'_padding'}[2] - 1),
-	  $$self{'_padding'}[3], $$self{'_padding'}[0]
-	 ),
+		fill      => 'none',
+		primitive => 'polyline',
+		stroke    => $self -> frame_color,
+		points    => sprintf
+		(
+			"%i,%i %i,%i %i,%i %i,%i %i,%i",
+			${$self -> padding}[3], ${$self -> padding}[0],
+			${$self -> padding}[3] + $x_max, ${$self -> padding}[0],
+			${$self -> padding}[3] + $x_max, ($self -> height - ${$self -> padding}[2] - 1),
+			${$self -> padding}[3], ($self -> height - ${$self -> padding}[2] - 1),
+			${$self -> padding}[3], ${$self -> padding}[0]
+		),
 	) && Carp::croak("Can't draw frame");
 
 }	# End of draw_frame.
@@ -98,45 +309,45 @@ sub draw_frame
 sub draw_horizontal_bars
 {
 	my($self)           = @_;
-	my($half_bar_width) = int($$self{'_bar_width'} / 2);
-	my($y_zero)         = $$self{'_height'} - $$self{'_padding'}[2] - 1;
+	my($half_bar_width) = int($self -> bar_width / 2);
+	my($y_zero)         = $self -> height - ${$self -> padding}[2] - 1;
 
 	my($i, $data, @metric, $x_right, $y_top);
 
-	for $i (0 .. $#{$$self{'_x_data'} })
+	for $i (0 .. $#{$self -> x_data})
 	{
-		$data    = $$self{'_x_data'}[$i];
-		$x_right = $$self{'_padding'}[3] + ($$self{'_x_pixels_per_unit'} * $data);
-		$y_top   = $y_zero - ($$self{'_y_pixels_per_unit'} * $$self{'_y_axis_data'}[$i]);
+		$data    = ${$self -> x_data}[$i];
+		$x_right = ${$self -> padding}[3] + ($self -> x_pixels_per_unit * $data);
+		$y_top   = $y_zero - ($self -> y_pixels_per_unit * ${$self -> y_axis_data}[$i]);
 
-		$$self{'_image'} -> Draw
+		$self -> image -> Draw
 		(
-			fill      => $$self{'_fg_color'},
+			fill      => $self -> fg_color,
 			primitive => 'polyline',
 			method    => 'floodfill',
-			stroke    => $$self{'_fg_color'},
+			stroke    => $self -> fg_color,
 			points    => sprintf
 			(
-			 "%i,%i %i,%i %i,%i %i,%i",
-			 $$self{'_padding'}[3], $y_top - $half_bar_width,
-			 $x_right, $y_top - $half_bar_width,
-			 $x_right, $y_top + $half_bar_width,
-			 $$self{'_padding'}[3], $y_top + $half_bar_width,
+				"%i,%i %i,%i %i,%i %i,%i",
+				${$self -> padding}[3], $y_top - $half_bar_width,
+				$x_right, $y_top - $half_bar_width,
+				$x_right, $y_top + $half_bar_width,
+				${$self -> padding}[3], $y_top + $half_bar_width,
 			),
 		) && Carp::croak("Can't draw horizontal bars");
 
-		next if ($$self{'_x_data_option'} == 0);
+		next if ($self -> x_data_option == 0);
 
-		@metric = $$self{'_image'} -> QueryFontMetrics(text => $data);
+		@metric = $self -> image -> QueryFontMetrics(text => $data);
 
-		$$self{'_image'} -> Annotate
+		$self -> image -> Annotate
 		(
-		 font        => $$self{'_font'},
+		 font        => $self -> font,
 		 text        => $data,
 		 stroke      => 'black',
 		 strokewidth => 1,
-		 pointsize   => $$self{'_pointsize'},
-		 x           => $x_right + $$self{'_tick_length'},
+		 pointsize   => $self -> pointsize,
+		 x           => $x_right + $self -> tick_length,
 		 y           => $y_top + int($metric[5] / 2) - 2,
 		) && Carp::croak("Can't draw horizontal bars");
 	}
@@ -149,15 +360,15 @@ sub draw_title
 {
 	my($self) = @_;
 
-	$$self{'_image'} -> Annotate
+	$self -> image -> Annotate
 	(
-	 font        => $$self{'_font'},
-	 text        => $$self{'_title'},
+	 font        => $self -> font,
+	 text        => $self -> title,
 	 stroke      => 'black',
 	 strokewidth => 1,
-	 pointsize   => $$self{'_pointsize'},
-	 x           => int( ($$self{'_width'} - int(int($$self{'_pointsize'} / 2) * length($$self{'_title'}) ) ) / 2),
-	 y           => int($$self{'_padding'}[0] / 2) + 2,
+	 pointsize   => $self -> pointsize,
+	 x           => int( ($self -> width - int(int($self -> pointsize / 2) * length($self -> title) ) ) / 2),
+	 y           => int(${$self -> padding}[0] / 2) + 2,
 	) && Carp::croak("Can't draw title");
 
 }	# End of draw_title.
@@ -167,25 +378,25 @@ sub draw_title
 sub draw_x_axis_labels
 {
 	my($self)	= @_;
-	my($x_zero)	= $$self{'_padding'}[3];
+	my($x_zero)	= ${$self -> padding}[3];
 
 	my($i, $text, $x_step, @metric);
 
-	for $i (0 .. $#{$$self{'_x_axis_labels'} })
+	for $i (0 .. $#{$self -> x_axis_labels})
 	{
-		$text   = $$self{'_x_axis_labels'}[$i];
-		$x_step = $x_zero + ($$self{'_x_pixels_per_unit'} * $$self{'_x_axis_data'}[$i]);
-		@metric = $$self{'_image'} -> QueryFontMetrics(text => $text);
+		$text   = ${$self -> x_axis_labels}[$i];
+		$x_step = $x_zero + ($self -> x_pixels_per_unit * ${$self -> x_axis_data}[$i]);
+		@metric = $self -> image -> QueryFontMetrics(text => $text);
 
-		$$self{'_image'} -> Annotate
+		$self -> image -> Annotate
 		(
-			font        => $$self{'_font'},
+			font        => $self -> font,
 			text        => $text,
-			stroke      => $$self{'_frame_color'},
+			stroke      => $self -> frame_color,
 			strokewidth => 1,
-			pointsize   => $$self{'_pointsize'},
+			pointsize   => $self -> pointsize,
 			x           => $x_step - int($metric[4] / 2) - 1,
-			y           => $$self{'_height'} - $$self{'_pointsize'},
+			y           => $self -> height - $self -> pointsize,
 		) && Carp::croak("Can't draw X-axis labels");
 	}
 
@@ -196,20 +407,20 @@ sub draw_x_axis_labels
 sub draw_x_axis_ticks
 {
 	my($self)   = @_;
-	my($x_zero) = $$self{'_padding'}[3];
-	my($y_zero) = $$self{'_x_axis_ticks_option'} == 1 ? $$self{'_height'} - $$self{'_padding'}[2] : $$self{'_padding'}[0];
-	my($y_one)  = $$self{'_height'} - $$self{'_padding'}[2] + $$self{'_tick_length'};
+	my($x_zero) = ${$self -> padding}[3];
+	my($y_zero) = $self -> x_axis_ticks_option == 1 ? $self -> height - ${$self -> padding}[2] : ${$self -> padding}[0];
+	my($y_one)  = $self -> height - ${$self -> padding}[2] + $self -> tick_length;
 
 	my($x, $x_step);
 
-	for $x (@{$$self{'_x_axis_data'} })
+	for $x (@{$self -> x_axis_data})
 	{
-		$x_step = $x_zero + ($$self{'_x_pixels_per_unit'} * $x);
+		$x_step = $x_zero + ($self -> x_pixels_per_unit * $x);
 
-		$$self{'_image'} -> Draw
+		$self -> image -> Draw
 		(
 			primitive => 'line',
-			stroke    => $$self{'_frame_color'},
+			stroke    => $self -> frame_color,
 			points    => sprintf
 			(
 				"%i,%i %i,%i",
@@ -226,23 +437,23 @@ sub draw_x_axis_ticks
 sub draw_y_axis_labels
 {
 	my($self)   = @_;
-	my($y_zero) = $$self{'_height'} - $$self{'_padding'}[2] - 1;
+	my($y_zero) = $self -> height - ${$self -> padding}[2] - 1;
 
 	my($y, $offset, @metric);
 
-	for $y (@{$$self{'_y_axis_labels'} })
+	for $y (@{$self -> y_axis_labels})
 	{
-		@metric = $$self{'_image'} -> QueryFontMetrics(text => $y);
-		$offset	= defined($$self{'_y_axis_labels_x'}) ? $$self{'_y_axis_labels_x'} : $$self{'_padding'}[3] - $$self{'_pointsize'} - $metric[4];
-		$y_zero -= $$self{'_y_pixels_per_unit'};
+		@metric = $self -> image -> QueryFontMetrics(text => $y);
+		$offset	= defined($self -> y_axis_labels_x) ? $self -> y_axis_labels_x : ${$self -> padding}[3] - $self -> pointsize - $metric[4];
+		$y_zero -= $self -> y_pixels_per_unit;
 
-		$$self{'_image'} -> Annotate
+		$self -> image -> Annotate
 		(
-			font        => $$self{'_font'},
+			font        => $self -> font,
 			text        => $y,
-			stroke      => $$self{'_frame_color'},
+			stroke      => $self -> frame_color,
 			strokewidth => 1,
-			pointsize   => $$self{'_pointsize'},
+			pointsize   => $self -> pointsize,
 			x           => $offset,
 			y           => $y_zero + int($metric[5] / 2) - 2,
 		) && Carp::croak("Can't draw Y-axis labels");
@@ -255,10 +466,10 @@ sub draw_y_axis_labels
 sub draw_y_axis_ticks
 {
 	my($self)   = @_;
-	my($x_max)  = $$self{'_x_pixels_per_unit'} * $$self{'_x_axis_data'}[$#{$$self{'_x_axis_data'} }];
-	my($x_zero) = $$self{'_y_axis_ticks_option'} == 1 ? $$self{'_padding'}[3] : $x_max + $$self{'_padding'}[3];
-	my($x_one)  = $$self{'_padding'}[3] - $$self{'_tick_length'};
-	my($y_zero) = $$self{'_height'} - $$self{'_padding'}[2] - 1;
+	my($x_max)  = $self -> x_pixels_per_unit * ${$self -> x_axis_data}[$#{$self -> x_axis_data}];
+	my($x_zero) = $self -> y_axis_ticks_option == 1 ? ${$self -> padding}[3] : $x_max + ${$self -> padding}[3];
+	my($x_one)  = ${$self -> padding}[3] - $self -> tick_length;
+	my($y_zero) = $self -> height - ${$self -> padding}[2] - 1;
 
 	my($i);
 
@@ -268,14 +479,14 @@ sub draw_y_axis_ticks
 	# can - and should - have an empty string as the last
 	# label on the y-axis, to make the image pretty.
 
-	for $i (0 .. $#{$$self{'_x_data'} })
+	for $i (0 .. $#{$self -> x_data})
 	{
-		$y_zero -= $$self{'_y_pixels_per_unit'};
+		$y_zero -= $self -> y_pixels_per_unit;
 
-		$$self{'_image'} -> Draw
+		$self -> image -> Draw
 		(
 			primitive => 'line',
-			stroke    => $$self{'_frame_color'},
+			stroke    => $self -> frame_color,
 			points    => sprintf
 			(
 				"%i,%i %i,%i",
@@ -289,52 +500,11 @@ sub draw_y_axis_ticks
 
 # -----------------------------------------------
 
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless({}, $class);
-
-	for my $attr_name ($self -> _standard_keys() )
-	{
-		my($arg_name) = $attr_name =~ /^_(.*)/;
-
-		if (exists($arg{$arg_name}) )
-		{
-			$$self{$attr_name} = $arg{$arg_name};
-		}
-		else
-		{
-			$$self{$attr_name} = $self -> _default_for($attr_name);
-		}
-	}
-
-	if ($$self{'_image'})
-	{
-		($$self{'_width'}, $$self{'_height'}) = $$self{'_image'} -> Get('width', 'height');
-	}
-	else
-	{
-		$$self{'_width'}  = $$self{'_padding'}[3] + 1 + ($$self{'_x_pixels_per_unit'} * $$self{'_x_axis_data'}[$#{$$self{'_x_axis_data'} }]) + $$self{'_padding'}[1];
-		$$self{'_height'} = $$self{'_padding'}[2] + 1 + ($$self{'_y_pixels_per_unit'} * $$self{'_y_axis_data'}[$#{$$self{'_y_axis_data'} }]) + $$self{'_padding'}[0];
-		$$self{'_image'}  = Image::Magick -> new(size => "$$self{'_width'} x $$self{'_height'}");
-
-		$$self{'_image'} -> Set(antialias => $$self{'_antialias'}) && Carp::croak("Can't set antialias: $$self{'_antialias'}");
-		$$self{'_image'} -> Set(colorspace => $$self{'_colorspace'}) && Carp::croak("Can't set colorspace: $$self{'_colorspace'}");
-		$$self{'_image'} -> Set(depth => $$self{'_depth'}) && Carp::croak("Can't set depth: $$self{'_depth'}");
-		$$self{'_image'} -> Read("xc:$$self{'_bg_color'}") && Carp::croak("Can't set bg_color color: $$self{'_bg_color'}");
-	}
-
-	return $self;
-
-}	# End of new.
-
-# -----------------------------------------------
-
 sub write
 {
 	my($self) = @_;
 
-	$$self{'_image'} -> Write($$self{'_output_file_name'}) && Carp::croak("Can't write file");
+	$self -> image -> Write($self -> output_file_name) && Carp::croak("Can't write file");
 
 }	# End of write.
 
