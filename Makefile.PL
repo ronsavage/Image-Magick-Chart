@@ -27,12 +27,14 @@ my(%params) =
 	PL_FILES	=> {},
 	PREREQ_PM	=>
 	{
-		'Carp'			=> 0,
-		'Image::Magick'	=> undef,
-		'Moo'			=> 2.003000,
-		'perl'			=> 5.006002,
-		'strict'		=> 0,
-		'warnings'		=> 0,
+		'Carp'				=> 0,
+		'Image::Magick'		=> undef,
+		'Moo'				=> 2.003000,
+		'parent'			=> 0,
+		'perl'				=> 5.006002,
+		'strict'			=> 0,
+		'Types::Standard'	=> 1.000005,
+		'warnings'			=> 0,
 	},
 	TEST_REQUIRES =>
 	{
