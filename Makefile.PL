@@ -28,7 +28,7 @@ my(%params) =
 	PREREQ_PM	=>
 	{
 		'Carp'			=> 0,
-		'Image::Magick'	=> 6.00,
+		'Image::Magick'	=> undef,
 		'Moo'			=> 2.003000,
 		'perl'			=> 5.006002,
 		'strict'		=> 0,
