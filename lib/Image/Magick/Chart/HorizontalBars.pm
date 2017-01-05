@@ -7,7 +7,7 @@ use Carp;
 
 use Image::Magick::Chart;
 
-require 5.005_62;
+require 5.006002;
 
 our $VERSION = '1.07';
 
